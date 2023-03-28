@@ -1,0 +1,30 @@
+pragma solidity 0.8.16;
+
+import "lib/forge-std/src/Test.sol";
+import {DexilonBridge_v10} from "contracts/bridge.sol";
+import {TetherUSD} from "contracts/Mocks/USDT.sol";
+
+contract ContractBridgeTest is Test {
+
+    DexilonBridge_v10 internal dexilon;
+    TetherUSD internal usdt;
+    address internal ownerAddress;
+
+    function setUp() public {
+        dexilon = new DexilonBridge_v10("Dexilon", "test");
+        usdt = new TetherUSD();
+        ownerAddress = 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496;
+        dexilon.setSupportedToken(address(usdt), true);
+    }
+
+    function testOwner() public {
+        assertEq(dexilon.owner(), ownerAddress);
+    }
+
+    function testSetSupportedToken() public {
+        address[] memory listSupportedTokens = new address[](1);
+        listSupportedTokens[0] = address(usdt);
+        assertEq(dexilon.getSupportedTokens(), listSupportedTokens);
+    }
+
+}

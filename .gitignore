@@ -1,0 +1,16 @@
+__pycache__
+.env
+.history
+.hypothesis/
+build/
+reports/
+venv
+node_modules
+cache
+artifacts
+lib
+out
+coverage
+coverage.json
+typechain
+typechain-types
